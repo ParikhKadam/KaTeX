@@ -6,7 +6,7 @@ This is a list of TeX functions, sorted alphabetically. This list includes funct
 
 If you know the shape of a character, but not its name, [Detexify](http://detexify.kirelabs.org/classify.html) can help.
 
-<link rel="stylesheet" href="/static/katex.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
 <style>
 table tr,
 table td {
@@ -190,9 +190,9 @@ table td {
 |\boxminus|$\boxminus$||
 |\boxplus|$\boxplus$||
 |\boxtimes|$\boxtimes$||
-|\Bra|$\left\langle\psi\right\|$|`\Bra{\psi}`|
-|\bra|$\mathinner{\langle{\psi}\|}$|`\bra{\psi}`|
-|\braket|$\mathinner{\langle{\phi\|\psi}\rangle}$|`\braket{\phi|\psi}`|
+|\Bra|$\Bra{\psi}$|`\Bra{\psi}`|
+|\bra|$\bra{\psi}$|`\bra{\psi}`|
+|\braket|$\braket{\phi\vert\psi}$|`\braket{\phi\vert\psi}`|
 |\brace|${n\brace k}$|`{n\brace k}`|
 |\bracevert|<span style="color:firebrick;">Not supported</span>||
 |\brack|${n\brack k}$|`{n\brack k}`|
@@ -215,7 +215,7 @@ table td {
 |\cap|$\cap$||
 |{cases}|$\begin{cases}a&\text{if }b\\c&\text{if }d\end{cases}$|`\begin{cases}`<br>&nbsp;&nbsp;&nbsp;`a &\text{if } b  \\`<br>&nbsp;&nbsp;&nbsp;`c &\text{if } d`<br>`\end{cases}`|
 |\cases|<span style="color:firebrick;">Not supported</span>|see `{cases}`|
-|{CD}|<span style="color:firebrick;">Not supported</span>||
+|{CD}|$$\begin{CD}A @>a>> B \\@VbVV @AAcA\\C @= D\end{CD}$$|`\begin{CD}`<br>&nbsp;&nbsp;&nbsp;`A  @>a>>  B  \\`<br>`@VbVV    @AAcA \\`<br>&nbsp;&nbsp;&nbsp;`C  @=     D`<br>`\end{CD}`|
 |\cdot|$\cdot$||
 |\cdotp|$\cdotp$||
 |\cdots|$\cdots$||
@@ -537,8 +537,8 @@ use `\ce` instead|
 |\KaTeX|$\KaTeX$||
 |\ker|$\ker$||
 |\kern|$I\kern-2.5pt R$|`I\kern-2.5pt R`|
-|\Ket|$\left\|\psi\right\rangle$|`\Ket{\psi}`|
-|\ket|$\mathinner{\|{\psi}\rangle}$|`\ket{\psi}`|
+|\Ket|$\Ket{\psi}$|`\Ket{\psi}`|
+|\ket|$\ket{\psi}$|`\ket{\psi}`|
 |\Koppa|<span style="color:firebrick;">Not supported</span>||
 |\koppa|<span style="color:firebrick;">Not supported</span>||
 
@@ -801,6 +801,7 @@ use `\ce` instead|
 |\ominus|$\ominus$||
 |\operatorname|$\operatorname{asin} x$|`\operatorname{asin} x`|
 |\operatorname\*|$\operatorname*{asin}\limits_y x$|`\operatorname*{asin}\limits_y x`|
+|\operatornamewithlimits|$\operatornamewithlimits{asin}\limits_y x$|`\operatornamewithlimits{asin}\limits_y x`|
 |\oplus|$\oplus$||
 |\or|<span style="color:firebrick;">Not supported</span>||
 |\origof|$\origof$||
@@ -1123,6 +1124,7 @@ use `\ce` instead|
 |\uArr|$\uArr$||
 |\uarr|$\uarr$||
 |\ulcorner|$\ulcorner$||
+|\underbar|$\underbar{X}$|`\underbar{X}`|
 |\underbrace|$\underbrace{x+⋯+x}_{n\text{ times}}$|`\underbrace{x+⋯+x}_{n\text{ times}}`|
 |\underbracket|<span style="color:firebrick;">Not supported</span>||
 |\undergroup|$\undergroup{AB}$|`\undergroup{AB}`|

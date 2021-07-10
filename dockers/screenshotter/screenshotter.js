@@ -172,7 +172,8 @@ if (!seleniumURL && opts.container) {
         guessDockerIPs();
     }
     seleniumPort = cmd("docker", "port", opts.container, seleniumPort);
-    seleniumPort = seleniumPort.replace(/^.*:/, "");
+    // Docker can output two lines, such as "0.0.0.0:49156\n:::49156"
+    seleniumPort = seleniumPort.replace(/[^]*:([0-9]+)[^]*/, "$1");
 }
 if (!seleniumURL && seleniumIP) {
     seleniumURL = "http://" + seleniumIP + ":" + seleniumPort + "/wd/hub";
@@ -213,24 +214,32 @@ function startServer() {
             },
         };
     }
+    const config = {
+        ...webpackConfig.devServer,
+        port,
+        hot: false,
+        liveReload: false,
+        injectClient: false,
+    };
     const compiler = webpack(webpackConfig);
-    const wds = new WebpackDevServer(compiler, webpackConfig.devServer);
-    const server = wds.listen(port);
-    server.once("listening", function() {
-        devServer = wds;
-        katexPort = port;
-        attempts = 0;
-        process.nextTick(opts.seleniumProxy ? getProxyDriver
-            : opts.browserstack ? startBrowserstackLocal : tryConnect);
-    });
-    server.on("error", function(err) {
-        if (devServer !== null) { // error after we started listening
-            throw err;
-        } else if (++attempts > 50) {
-            throw new Error("Failed to start up dev server");
-        } else {
-            process.nextTick(startServer);
-        }
+    const wds = new WebpackDevServer(compiler, config);
+    wds.listen(port).then(server => {
+        server.once("listening", function() {
+            devServer = wds;
+            katexPort = port;
+            attempts = 0;
+            process.nextTick(opts.seleniumProxy ? getProxyDriver
+                : opts.browserstack ? startBrowserstackLocal : tryConnect);
+        });
+        server.on("error", function(err) {
+            if (devServer !== null) { // error after we started listening
+                throw err;
+            } else if (++attempts > 50) {
+                throw new Error("Failed to start up dev server");
+            } else {
+                process.nextTick(startServer);
+            }
+        });
     });
 }
 
@@ -357,7 +366,7 @@ function setSize(reqW, reqH) {
 }
 
 function imageDimensions(img) {
-    const buf = new Buffer(img, "base64");
+    const buf = Buffer.from(img, "base64");
     return {
         buf: buf,
         width: buf.readUInt32BE(16),
@@ -485,7 +494,7 @@ function takeScreenshot(key) {
     function loadFonts() {
         driver.executeAsyncScript(
                 "var callback = arguments[arguments.length - 1]; " +
-                "load_fonts(callback);")
+                "load_fonts_and_images(callback);")
             .then(waitThenScreenshot);
     }
 

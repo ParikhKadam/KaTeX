@@ -4,7 +4,7 @@
  * This can be used to define some commands in terms of others.
  */
 
-import fontMetricsData from "../submodules/katex-fonts/fontMetricsData";
+import fontMetricsData from "./fontMetricsData";
 import functions from "./functions";
 import symbols from "./symbols";
 import utils from "./utils";
@@ -327,10 +327,12 @@ defineMacro("\\bgroup", "{");
 defineMacro("\\egroup", "}");
 
 // Symbols from latex.ltx:
+// \def~{\nobreakspace{}}
 // \def\lq{`}
 // \def\rq{'}
 // \def \aa {\r a}
 // \def \AA {\r A}
+defineMacro("~", "\\nobreakspace");
 defineMacro("\\lq", "`");
 defineMacro("\\rq", "'");
 defineMacro("\\aa", "\\r a");
@@ -376,6 +378,9 @@ defineMacro("\\clap", "\\mathclap{\\textrm{#1}}");
 
 // \mathstrut from the TeXbook, p 360
 defineMacro("\\mathstrut", "\\vphantom{(}");
+
+// \underbar from TeXbook p 353
+defineMacro("\\underbar", "\\underline{\\text{#1}}");
 
 // \not is defined by base/fontmath.ltx via
 // \DeclareMathSymbol{\not}{\mathrel}{symbols}{"36}
